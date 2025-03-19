@@ -98,12 +98,55 @@ ggplot(data = mpg)+
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x =cut))
 
+####overriding defaults in ggplot####
+demo
+
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, y = freq), stat = "identity")
+
+diamonds
+ggplot(data=diamonds)+
+  geom_bar(mapping = aes(x=cut, y = stat(prop), group = 1))
+
+####plotting statistical details####
+ggplot(data=diamonds)+
+  stat_summary(
+    mapping =aes(x = cut, y = depth),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+
+#making it pretty
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, colour = cut))
+ggplot(data = diamonds)+
+  geom_bar(mapping = aes (x = cut, fill = cut))
+ggplot(data=diamonds)+
+  geom_bar(mapping = aes(x=cut, fill = clarity))
+
+#altering transparency
+ggplot(data=diamonds, mapping = aes(x=cut, fill=clarity))+
+  geom_bar(alpha=1/5, position = "identity")
+
+#to color the bar outlines with no fill color
+ggplot(data=diamonds, mapping = aes(x=cut, color=clarity))+
+  geom_bar(fill=NA, position = "identity")
+
+ggplot(data=diamonds, mapping = aes(x=cut, color=clarity))+
+  geom_bar(fill=NA, position = "fill")
 
 
+ggplot(data=diamonds, mapping = aes(x=cut, color=clarity))+
+  geom_bar(fill=NA, position = "dodge")
 
 
+ggplot(data=diamonds, mapping = aes(x=cut, color=clarity))+
+  geom_bar(fill=NA, position = "jitter")
 
 
+####the layered grammar of graphics####
 
-
-             
+         
+         
+         
