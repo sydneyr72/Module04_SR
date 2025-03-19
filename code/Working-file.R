@@ -7,6 +7,7 @@ use_git_config(user.name = "Sydney Russo", user.email = "Sydney.russo@my.jcu.edu
 usethis::use_github()
 install.packages("tidyverse")
 library(tidyverse)
+library(dplyr)
 
 mpg
 
@@ -145,8 +146,66 @@ ggplot(data=diamonds, mapping = aes(x=cut, color=clarity))+
   geom_bar(fill=NA, position = "jitter")
 
 
-####the layered grammar of graphics####
+####Workshop 2####
 
-         
-         
-         
+####labels####
+ggplot(mpg, aes(displ, hwy))+
+  geom_point(aes(color=class))+
+  geom_smooth(se.e = FALSE)+
+  labs(title = "Fuel efficiency generally decreases with engine size")
+#subtitle adds additional detail in a smaller font beneath the title and caption adds text at the bottom right of the plot
+#caption adds text at the bottom right of the plot, often used to describe the source of the data
+
+ggplot(mpg, aes(displ, hwy))+
+  geom_point(aes(color=class))+
+  geom_smooth(se.e = FALSE)+
+  labs(title = "Fuel efficiency generally decreases with engine size",
+       subtitle = "Two seaters (sports cars) are an exception becuse of their light weight",
+       caption = "Data from Feuleconomy.gov")
+
+#you can also use labs to change the labels on the axis and legend titles         
+ggplot(mpg, aes(displ, hwy))+
+  geom_point(aes(color=class))+
+  geom_smooth(se.e = FALSE)+
+  labs(
+    x = "Engine displacement (L)",
+    y = "Highway fueleconomy (mpg)",
+    colour = "car type"
+  )
+
+####Annotations####
+best_in_class <- mpg |>
+  group_by(class) |>
+  filter(row_number(desc(hwy))==1)
+
+ggplot(mpg, aes(displ, hwy))+
+  geom_point(aes(color=class))+
+  geom_text(aes(label = model), data = best_in_class)
+
+####Scales####
+ggplot(mpg, aes(displ, hwy))+
+  geom_point(aes(color = class))+
+  scale_x_continuous()+
+  scale_y_continuous()+
+  scale_color_discrete()
+
+####Axis ticks####
+ggplot(mpg, aes(displ, hwy))+
+  geom_point()+
+  scale_y_continuous(breaks = seq(15,40, by = 5))
+
+ggplot(mpg, aes(displ, hwy))+
+  geom_point()+
+  scale_x_continuous(labels = NULL)+
+  scale_y_continuous(lables = NULL)
+##NEED TO FIGURE OUT WHAT IS WRONG WITH THIS
+
+####legends and color schemes####
+
+
+
+
+
+
+
+
