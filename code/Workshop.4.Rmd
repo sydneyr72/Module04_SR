@@ -92,7 +92,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy))+
 Exercise
 #1. line: geom_line  , Boxplot:geom_boxplot  , Histogram: geom_histogram, an area chart: geom_area
 #2. I predict that the graphs will all look different becuase they are asking for the data to be laid out in different forms.
-```{r}
+```{r warning=FALSE}
 ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
   geom_line()
 ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
@@ -119,7 +119,18 @@ ggplot(data = diamonds) +
 
 Overriding defaults in ggplot
 ```{r}
-ggplot(data = diamonds) +
+demo <- tribble(
+  ~cut,         ~freq,
+  "Fair",       1610,
+  "Good",       4906,
+  "Very Good",  12082,
+  "Premium",    13791,
+  "Ideal",      21551
+)
+demo
+
+diamonds
+ggplot(data = demo) +
   geom_bar(mapping = aes(x = cut, y = freq), stat = "identity")
 
 diamonds
@@ -172,7 +183,7 @@ ggplot(data=diamonds, mapping = aes(x=cut, color=clarity))+
 WORKSHOP 2
 
 Labels
-```{r}
+```{r warning=FALSE}
 ggplot(mpg, aes(displ, hwy))+
   geom_point(aes(color=class))+
   geom_smooth(se.e = FALSE)+
@@ -228,16 +239,18 @@ ggplot(mpg, aes(displ, hwy))+
 ggplot(mpg, aes(displ, hwy))+
   geom_point()+
   scale_x_continuous(labels = NULL)+
-  scale_y_continuous(lables = NULL)
-##NEED TO FIGURE OUT WHAT IS WRONG WITH THIS
+  scale_y_continuous(labels = NULL)
 ```
 
 Legends and color schemes
 ```{r}
 base <- ggplot (mpg, aes(displ, hwy))+
   geom_point(aes(color=class))
-base + theme(legand.position ="left")
-base+theme(legand.position = "top")
+base + theme(legend.position ="left")
+base+theme(legend.position = "top")
+base+theme(legend.position = "bottom")
+base+theme(legend.position = "right") #this is the default legend position
+base+theme(legend.position = "NONE")
 ```
 
 
