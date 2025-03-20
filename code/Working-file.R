@@ -201,9 +201,10 @@ ggplot(mpg, aes(displ, hwy))+
 ##NEED TO FIGURE OUT WHAT IS WRONG WITH THIS
 
 ####legends and color schemes####
-
-
-
+base <- ggplot (mpg, aes(displ, hwy))+
+  geom_point(aes(color=class))
+base + theme(legand.position ="left")
+base+theme(legand.position = "top")
 
 
 
