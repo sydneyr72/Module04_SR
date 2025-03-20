@@ -100,7 +100,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x =cut))
 
 ####overriding defaults in ggplot####
-demo
+
 
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = freq), stat = "identity")
