@@ -11,6 +11,11 @@ uploading libraries
 ```{r}
 library(tidyverse)
 library(dplyr)
+library(ggplot2)
+library(RColorBrewer)
+library(viridis)
+library(hexbin)
+#install.packages('viridis')
 ```
 
 
@@ -252,6 +257,97 @@ base+theme(legend.position = "bottom")
 base+theme(legend.position = "right") #this is the default legend position
 base+theme(legend.position = "NONE")
 ```
+
+Replacing a scale
+```{r}
+ggplot (diamonds, aes(carat, price)) +
+  geom_bin2d()+
+  scale_x_log10()+
+  scale_y_log10()
+
+ggplot(mpg,aes(displ,hwy))+
+  geom_point(aes(color = drv))
+
+ggplot(mpg, aes(displ, hwy))+
+  geom_point(aes(color=drv))+
+  scale_color_brewer(palette = "set1")
+
+ggplot(mpg, aes(displ, hwy))+
+  geom_point(aes(color=drv, shape = drv))+
+  scale_color_brewer(palette = "set1")
+
+presidential|>
+  mutate(id =33 + row_number()) |>
+  ggplot(aes(start, id, color=party))+
+    geom_point()+
+    geom_segment(aes(xend = end, yend = id))+
+    scale_color_manual(values=c(Republican = "red", Democratic = "blue"))
+  
+```
+```{r}
+df <- tibble( #not we are just making a fake dataset so we can plot it
+  x= rnorm(10000),
+  y = rnorm(10000)
+)
+ggplot(df, aes(x, y)) +
+  geom_hex() + 
+  coord_fixed()
+ggplot(df, aes(x,y))+
+  geom_hex()+
+  viridis::scale_fill_viridis()+
+  coord_fixed()
+
+
+```
+Themes
+```{r}
+ggplot(mpg, aes(displ, hwy))+
+  geom_point(aes(color=class))+
+  geom_smooth(se = FALSE)+
+  theme_bw()
+
+ggplot(mpg,aes(displ,hwy))+
+  geom_point(aes(color=class))+
+  geom_smooth(se = FALSE)+
+  theme_light()
+
+ggplot(mpg,aes(displ,hwy))+
+  geom_point(aes(color=class))+
+  geom_smooth(se = FALSE)+
+  theme_classic()
+
+ggplot(mpg,aes(displ,hwy))+
+  geom_point(aes(color=class))+
+  geom_smooth(se = FALSE)+
+  theme_dark()
+
+theme(panel.border = element_blank(),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      legend.position = "bottom",
+      legend.title = element_blank(),
+      legend.text = element_text(size=8),
+      panel.grid.major = element_blank(),
+      axis.text.y=element_text(color="black"),
+      axis.text.x=element_text(color="black"),
+      text=element_text(family="Arial"))
+
+```
+
+Saving and Exporting your Plots
+```{r}
+ggplot(mpg, aes(displ, hwy)) + geom_point()
+
+ggsave("my-plot.pdf")
+```
+Workshop 2 Assignment
+
+
+
+
+
+
+
 
 
 
