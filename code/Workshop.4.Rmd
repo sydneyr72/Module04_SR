@@ -341,9 +341,29 @@ ggplot(mpg, aes(displ, hwy)) + geom_point()
 ggsave("my-plot.pdf")
 ```
 Workshop 2 Assignment
+```{r}
+Qfish <-read.csv("C:/Users/sydne/OneDrive - James Cook University/Documents/JCU/MB5370/github/SR-Code/Module04_SR/data/QFish_Data.csv")
+print(Qfish)
+
+```
+Plotting the data, It is already cleaned from my old csv
+```{r}
+library(ggplot2)
+ggplot(Qfish, aes (x = Area, y = X2001.Total))+
+  geom_bar(stat = "identity", fill = "darkcyan") +
+  theme_minimal()+
+  labs(title = "Total Catch in 2001 by Area",
+       x = NULL,
+       y = "Total Cathc") +
+  theme(axis.text.x =element_text(angle = 45, hjust = 1, size = 6))
 
 
+```
 
+
+To Import the dataset: My first step for importing the dataset was to export a .csv file from Qfish. Once I have it in my correct file I then used the read.csv and the path to import the file into Rstudio.To make what I wanted easier to work with I created a new .csv file with only total 2001 data and the area.
+Cleaning the data: it was easier to clean the data in Excel as the exported file did not make a good csv. I got my total
+Creating my plot: I decided to make a bar graph as that was the best way to show the total number of species and animals caught in the year 2001. I created the boxplot and played around with color, phone sizes and axis labels. 
 
 
 
