@@ -346,7 +346,7 @@ Qfish <-read.csv("C:/Users/sydne/OneDrive - James Cook University/Documents/JCU/
 print(Qfish)
 
 ```
-Plotting the data, It is already cleaned from my old csv
+Plotting the data, it is mainly cleaned, there are no NAs or missing values
 ```{r}
 library(ggplot2)
 ggplot(Qfish, aes (x = Area, y = X2001.Total))+
@@ -362,8 +362,35 @@ ggplot(Qfish, aes (x = Area, y = X2001.Total))+
 
 
 To Import the dataset: My first step for importing the dataset was to export a .csv file from Qfish. Once I have it in my correct file I then used the read.csv and the path to import the file into Rstudio.To make what I wanted easier to work with I created a new .csv file with only total 2001 data and the area.
-Cleaning the data: it was easier to clean the data in Excel as the exported file did not make a good csv. I got my total
+Cleaning the data: I fixed the columns with the proper headers and created a new dataset with the data I needed
 Creating my plot: I decided to make a bar graph as that was the best way to show the total number of species and animals caught in the year 2001. I created the boxplot and played around with color, phone sizes and axis labels. 
+
+Workshop 3
+
+```{r}
+library(tidyverse)
+table1
+library(ggplot2)
+ggplot(table1, aes(year, cases))+
+  geom_line(aes(group = country), colour = "grey50") +
+  geom_point(aes(colour = country))
+```
+
+```{r}
+table1
+table2
+table3
+```
+1. Table 1 is set up well with country, year cases and population. This shows the population per year per country with the number of cases. table2 shows the count of cases and population in each country separated by year. table3 has the rate in there but as the growth rate per year in each country but it has not been calculated yet.
+2. a. using 
+
+
+
+
+
+
+
+
 
 
 
