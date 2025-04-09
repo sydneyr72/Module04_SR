@@ -53,7 +53,6 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x=displ, y=hwy, colour = class))+
   facet_grid(.~ cyl)
 ```
-
 Exercise
 #what does nrow do? what does ncol do? what other options control the layout of the individual panels?
 #nrow and ncol are the number or rows and columns that are present
@@ -342,7 +341,7 @@ ggsave("my-plot.pdf")
 ```
 Workshop 2 Assignment
 ```{r}
-Qfish <-read.csv("C:/Users/sydne/OneDrive - James Cook University/Documents/JCU/MB5370/github/SR-Code/Module04_SR/data/QFish_Data.csv")
+Qfish <-read.csv("../data/QFish_Data.csv")
 print(Qfish)
 
 ```
@@ -378,17 +377,173 @@ ggplot(table1, aes(year, cases))+
 
 ```{r}
 table1
+
 table2
 table3
 ```
 1. Table 1 is set up well with country, year cases and population. This shows the population per year per country with the number of cases. table2 shows the count of cases and population in each country separated by year. table3 has the rate in there but as the growth rate per year in each country but it has not been calculated yet.
-2. a. using 
+2. a. using table 1 we would use a combination of the pipe function and the pivot longer to call the cases with country and year because there are 2 years for each country. and use the mutate function to put it into a new row in the table
+b. and then to do the matching population per country per year, we would do the same as above but instead of case it would be population and then would mutate it so that it created a new row in the chart
+c. using those new columns and creating a new column I can then calculate the the case by population and multiply it by 10,000 and use the mutate function to put that back into the dataset.
+
+```{r}
+billboard |>
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    values_to = "rank",
+    values_drop_na = TRUE
+  )
+
+```
+
+```{r}
+df <- tribble (
+  ~id, ~bp1, ~bp2,
+  "A", 100, 120,
+  "B", 140, 115,
+  "C", 120, 125
+)
+#this is creating out own dataset called df with 3 variables
+
+df|>
+  pivot_longer(
+    cols = bp1:bp2,
+    names_to = "measurement",
+    values_to ="value"
+  )
+#the above took the values for both bp1 and bp2 into one column and then another column was its matched bp1 or bp2
+```
+
+```{r}
+cms_patient_experience |>
+  pivot_wider(
+    id_cols = starts_with("org"),
+    names_from = measure_cd,
+    values_from = prf_rate
+  )
+```
+```{r}
+df <- tribble (
+  ~id, ~measurement, ~value,
+  "A", "bp1", 100,
+  "B", "bp2", 115,
+  "B", "bp1", 140,
+  "A", "bp2", 120,
+  "A", "bp3", 105
+)
+print(df)
+
+df |>
+  pivot_wider(
+    names_from = measurement,
+    values_from = value
+  )
+
+df |>
+  distinct (measurement) |>
+  pull()
+
+df |>
+  select(-measurement, -value) |>
+  distinct()|>
+  mutate(x = NA, y = NA, z = NA)
+
+
+```
+
+Excercise 4.5.5
+```{r}
+stocks <- tibble(
+  year = c(2015, 2015, 2016, 2016),
+  half = c(1, 2, 1, 2),
+  return = c(1.88, 0.59, 0.92, 0.17)
+)
+
+stocks %>%
+  pivot_wider(names_from = year, values_from = return) %>%
+  pivot_longer('2015':'2016',names_to = "year", values_to = "return")
+```
+
+1. it is becuase they sort the data differently. One organizes by 1/2 1 na dthe other by 1/2 2
+
+2. the code fails because the years need the quotations around them
+
+3. this tibble would need to be longer. the variables are pregnant, male and female
+
+
+```{r}
+table3 |>
+  separate(rate, into = c("cases", "population"), convert = TRUE)
+
+table3 |>
+  separate(year, into = c("century", "year"), sep = 2)
+
+
+table5|>
+  unite(new,century,year,sep = "")
+
+```
+
+```{r}
+treatment <- tribble(
+  ~person, ~treatment, ~response,
+  "Derrick", 1, 7, 
+  NA, 2, 10,
+  NA, 3, NA,
+  "Katherine", 1, 4
+)
+
+#you can use fill in these missing values with tidyr::fill(), it works like select()
+treatment |>
+  fill(everything()) 
+#this treatment is sometimes calles "last observation carried forward"
+
+```
+
+```{r}
+x <- c(1,4,5,7,NA)
+coalesce(x,0)
+
+x <- c(1,4,5,7,-99)
+na_if(x,-99)
+
+x<- c (NA, NaN)
+x*10
+
+x==1
+
+is.na(x)
+```
+
+```{r}
+stocks <- tibble(
+  year = c(2020,2020,2020,2020,2021,2021,2021),
+  qrt = c(1,2,3,4,2,3,4),
+  price = c(1.88,0.59,0.35,NA,0.92,0.17,2.66)
+)
+
+stocks |>
+  pivot_wider(
+    names_from = qrt,
+    values_from = price
+  )
+```
 
 
 
 
 
 
+Exercise 4.7.3
+
+
+1. each of these are creating a file.
+  1. there are not enough column names
+  2. there are too many rows for the amount of columns present
+  3. there is a quotation issue with this one
+  4. there is an issue with number and character 
+  5. the last one needs a comma not a semicolon
 
 
 
