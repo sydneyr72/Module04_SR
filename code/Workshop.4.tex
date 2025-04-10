@@ -1,0 +1,2265 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Workshop.4},
+  pdfauthor={Sydney Russo},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Workshop.4}
+\author{Sydney Russo}
+\date{2025-03-19}
+
+\begin{document}
+\maketitle
+
+Workshop 1
+
+uploading libraries
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.1.4     v readr     2.1.5
+## v forcats   1.0.0     v stringr   1.5.1
+## v ggplot2   3.5.1     v tibble    3.2.1
+## v lubridate 1.9.4     v tidyr     1.3.1
+## v purrr     1.0.4     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(RColorBrewer)}
+\FunctionTok{library}\NormalTok{(viridis)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: viridisLite
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(hexbin)}
+\CommentTok{\#install.packages(\textquotesingle{}viridis\textquotesingle{})}
+\end{Highlighting}
+\end{Shaded}
+
+Creating the first plot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ displ, }\AttributeTok{y =}\NormalTok{ hwy, }\AttributeTok{colour=}\NormalTok{class))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-2-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#this graph shows a negative relationship between engine size and fuel efficiency}
+
+\CommentTok{\#changing the appearance of the graph}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ displ, }\AttributeTok{y =}\NormalTok{ hwy), }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-2-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#what happens if you map an aesthetic to something other than a variable name}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ displ, }\AttributeTok{y =}\NormalTok{ hwy, }\AttributeTok{colour =}\NormalTok{ displ }\SpecialCharTok{\textless{}} \DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-2-3.pdf}}
+
+Using Facet Wraps
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{mpg) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{mapping =}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ displ, }\AttributeTok{y =}\NormalTok{ hwy)) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{ (}\SpecialCharTok{\textasciitilde{}}\NormalTok{class, }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-3-1.pdf}}
+
+Using Facet Wrap Grids
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#this allows the facet to split by more than one variable}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{displ, }\AttributeTok{y=}\NormalTok{hwy, }\AttributeTok{colour =}\NormalTok{ class))}\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(drv }\SpecialCharTok{\textasciitilde{}}\NormalTok{ cyl)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-4-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{displ, }\AttributeTok{y=}\NormalTok{hwy, }\AttributeTok{colour =}\NormalTok{ class))}\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{ cyl)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-4-2.pdf}}
+Exercise \#what does nrow do? what does ncol do? what other options
+control the layout of the individual panels? \#nrow and ncol are the
+number or rows and columns that are present \#there are scales,
+shrinking (will shrink scales to fit output of statistics not raw data
+if true, if false it will be a range of raw data before statistical
+summary), switch function allows for the X and Y to switch to top,
+bottom, right or left. there are many more aswell.
+
+Fitting lines
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{ (}\AttributeTok{x=}\NormalTok{displ, }\AttributeTok{y=}\NormalTok{hwy))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-5-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{displ, }\AttributeTok{y=}\NormalTok{hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{displ, }\AttributeTok{y=}\NormalTok{hwy, }\AttributeTok{linetype =}\NormalTok{ drv))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-5-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#setting the group aesthetic}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg)}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{mapping=}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{displ, }\AttributeTok{y=}\NormalTok{hwy, }\AttributeTok{group=}\NormalTok{drv))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-5-3.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#changing the colour}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{mpg)}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}
+    \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ displ, }\AttributeTok{y =}\NormalTok{ hwy, }\AttributeTok{color =}\NormalTok{ drv),}
+    \AttributeTok{show.legend=}\ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-5-4.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#mapping multiple geoms on one plot}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg)}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ displ, }\AttributeTok{y =}\NormalTok{ hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ displ, }\AttributeTok{y =}\NormalTok{ hwy))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-5-5.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#an easier way to do above if I wanted to change anything}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ displ, }\AttributeTok{y =}\NormalTok{ hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-5-6.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#adding colors}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ displ, }\AttributeTok{y =}\NormalTok{ hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{class))}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{data =} \FunctionTok{filter}\NormalTok{ (mpg, class }\SpecialCharTok{==}\StringTok{"subcompact"}\NormalTok{), }\AttributeTok{se =}\ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-5-7.pdf}}
+
+Exercise \#1. line: geom\_line , Boxplot:geom\_boxplot , Histogram:
+geom\_histogram, an area chart: geom\_area \#2. I predict that the
+graphs will all look different becuase they are asking for the data to
+be laid out in different forms.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{displ, }\AttributeTok{y=}\NormalTok{hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-6-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{displ, }\AttributeTok{y=}\NormalTok{hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-6-2.pdf}}
+
+\#3. I would assume that these two graphs are saying the same thing just
+in 2 different ways. and yes they are the same.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ displ, }\AttributeTok{y =}\NormalTok{ hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-7-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mpg)}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ displ, }\AttributeTok{y =}\NormalTok{ hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ displ, }\AttributeTok{y =}\NormalTok{ hwy))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-7-2.pdf}}
+
+Plotting Statistics
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{cut))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-8-1.pdf}}
+
+Overriding defaults in ggplot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}
+  \SpecialCharTok{\textasciitilde{}}\NormalTok{cut,         }\SpecialCharTok{\textasciitilde{}}\NormalTok{freq,}
+  \StringTok{"Fair"}\NormalTok{,       }\DecValTok{1610}\NormalTok{,}
+  \StringTok{"Good"}\NormalTok{,       }\DecValTok{4906}\NormalTok{,}
+  \StringTok{"Very Good"}\NormalTok{,  }\DecValTok{12082}\NormalTok{,}
+  \StringTok{"Premium"}\NormalTok{,    }\DecValTok{13791}\NormalTok{,}
+  \StringTok{"Ideal"}\NormalTok{,      }\DecValTok{21551}
+\NormalTok{)}
+\NormalTok{demo}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 2
+##   cut        freq
+##   <chr>     <dbl>
+## 1 Fair       1610
+## 2 Good       4906
+## 3 Very Good 12082
+## 4 Premium   13791
+## 5 Ideal     21551
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{diamonds}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 53,940 x 10
+##    carat cut       color clarity depth table price     x     y     z
+##    <dbl> <ord>     <ord> <ord>   <dbl> <dbl> <int> <dbl> <dbl> <dbl>
+##  1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
+##  2  0.21 Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+##  3  0.23 Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+##  4  0.29 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+##  5  0.31 Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+##  6  0.24 Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
+##  7  0.24 Very Good I     VVS1     62.3    57   336  3.95  3.98  2.47
+##  8  0.26 Very Good H     SI1      61.9    55   337  4.07  4.11  2.53
+##  9  0.22 Fair      E     VS2      65.1    61   337  3.87  3.78  2.49
+## 10  0.23 Very Good H     VS1      59.4    61   338  4     4.05  2.39
+## # i 53,930 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ demo) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ cut, }\AttributeTok{y =}\NormalTok{ freq), }\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-9-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{diamonds}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 53,940 x 10
+##    carat cut       color clarity depth table price     x     y     z
+##    <dbl> <ord>     <ord> <ord>   <dbl> <dbl> <int> <dbl> <dbl> <dbl>
+##  1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
+##  2  0.21 Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+##  3  0.23 Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+##  4  0.29 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+##  5  0.31 Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+##  6  0.24 Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
+##  7  0.24 Very Good I     VVS1     62.3    57   336  3.95  3.98  2.47
+##  8  0.26 Very Good H     SI1      61.9    55   337  4.07  4.11  2.53
+##  9  0.22 Fair      E     VS2      65.1    61   337  3.87  3.78  2.49
+## 10  0.23 Very Good H     VS1      59.4    61   338  4     4.05  2.39
+## # i 53,930 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{diamonds)}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{cut, }\AttributeTok{y =} \FunctionTok{stat}\NormalTok{(prop), }\AttributeTok{group =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: `stat(prop)` was deprecated in ggplot2 3.4.0.
+## i Please use `after_stat(prop)` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-9-2.pdf}}
+
+Plotting Statistical details
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{diamonds)}\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}
+    \AttributeTok{mapping =}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ cut, }\AttributeTok{y =}\NormalTok{ depth),}
+    \AttributeTok{fun.min =}\NormalTok{ min,}
+    \AttributeTok{fun.max =}\NormalTok{ max,}
+    \AttributeTok{fun =}\NormalTok{ median}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-10-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#making it pretty}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ cut, }\AttributeTok{colour =}\NormalTok{ cut))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-10-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds)}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{ (}\AttributeTok{x =}\NormalTok{ cut, }\AttributeTok{fill =}\NormalTok{ cut))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-10-3.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{diamonds)}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{cut, }\AttributeTok{fill =}\NormalTok{ clarity))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-10-4.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#altering transparency}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{cut, }\AttributeTok{fill=}\NormalTok{clarity))}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{alpha=}\DecValTok{1}\SpecialCharTok{/}\DecValTok{5}\NormalTok{, }\AttributeTok{position =} \StringTok{"identity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-10-5.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#to color the bar outlines with no fill color}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{cut, }\AttributeTok{color=}\NormalTok{clarity))}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{fill=}\ConstantTok{NA}\NormalTok{, }\AttributeTok{position =} \StringTok{"identity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-10-6.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{cut, }\AttributeTok{color=}\NormalTok{clarity))}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{fill=}\ConstantTok{NA}\NormalTok{, }\AttributeTok{position =} \StringTok{"fill"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-10-7.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{cut, }\AttributeTok{color=}\NormalTok{clarity))}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{fill=}\ConstantTok{NA}\NormalTok{, }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-10-8.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{cut, }\AttributeTok{color=}\NormalTok{clarity))}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{fill=}\ConstantTok{NA}\NormalTok{, }\AttributeTok{position =} \StringTok{"jitter"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-10-9.pdf}}
+
+WORKSHOP 2
+
+Labels
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mpg, }\FunctionTok{aes}\NormalTok{(displ, hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{class))}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{se.e =} \ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Fuel efficiency generally decreases with engine size"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-11-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#subtitle adds additional detail in a smaller font beneath the title and caption adds text at the bottom right of the plot}
+\CommentTok{\#caption adds text at the bottom right of the plot, often used to describe the source of the data}
+
+\FunctionTok{ggplot}\NormalTok{(mpg, }\FunctionTok{aes}\NormalTok{(displ, hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{class))}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{se.e =} \ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Fuel efficiency generally decreases with engine size"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Two seaters (sports cars) are an exception becuse of their light weight"}\NormalTok{,}
+       \AttributeTok{caption =} \StringTok{"Data from Feuleconomy.gov"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-11-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#you can also use labs to change the labels on the axis and legend titles         }
+\FunctionTok{ggplot}\NormalTok{(mpg, }\FunctionTok{aes}\NormalTok{(displ, hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{class))}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{se.e =} \ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{x =} \StringTok{"Engine displacement (L)"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Highway fueleconomy (mpg)"}\NormalTok{,}
+    \AttributeTok{colour =} \StringTok{"car type"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-11-3.pdf}}
+
+Annotations
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{best\_in\_class }\OtherTok{\textless{}{-}}\NormalTok{ mpg }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{group\_by}\NormalTok{(class) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{row\_number}\NormalTok{(}\FunctionTok{desc}\NormalTok{(hwy))}\SpecialCharTok{==}\DecValTok{1}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(mpg, }\FunctionTok{aes}\NormalTok{(displ, hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{class))}\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ model), }\AttributeTok{data =}\NormalTok{ best\_in\_class)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-12-1.pdf}}
+
+Scales
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mpg, }\FunctionTok{aes}\NormalTok{(displ, hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color =}\NormalTok{ class))}\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_discrete}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-13-1.pdf}}
+
+Axis Ticks
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mpg, }\FunctionTok{aes}\NormalTok{(displ, hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{15}\NormalTok{,}\DecValTok{40}\NormalTok{, }\AttributeTok{by =} \DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-14-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mpg, }\FunctionTok{aes}\NormalTok{(displ, hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{labels =} \ConstantTok{NULL}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =} \ConstantTok{NULL}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-14-2.pdf}}
+
+Legends and color schemes
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{base }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{ (mpg, }\FunctionTok{aes}\NormalTok{(displ, hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{class))}
+\NormalTok{base }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =}\StringTok{"left"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-15-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{base}\SpecialCharTok{+}\FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-15-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{base}\SpecialCharTok{+}\FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-15-3.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{base}\SpecialCharTok{+}\FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"right"}\NormalTok{) }\CommentTok{\#this is the default legend position}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-15-4.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{base}\SpecialCharTok{+}\FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"NONE"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-15-5.pdf}}
+
+Replacing a scale
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{ (diamonds, }\FunctionTok{aes}\NormalTok{(carat, price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bin2d}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_log10}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_log10}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-16-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mpg,}\FunctionTok{aes}\NormalTok{(displ,hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color =}\NormalTok{ drv))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-16-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mpg, }\FunctionTok{aes}\NormalTok{(displ, hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{drv))}\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"set1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Unknown palette: "set1"
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-16-3.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mpg, }\FunctionTok{aes}\NormalTok{(displ, hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{drv, }\AttributeTok{shape =}\NormalTok{ drv))}\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"set1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Unknown palette: "set1"
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-16-4.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{presidential}\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{id =}\DecValTok{33} \SpecialCharTok{+} \FunctionTok{row\_number}\NormalTok{()) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(start, id, }\AttributeTok{color=}\NormalTok{party))}\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{()}\SpecialCharTok{+}
+    \FunctionTok{geom\_segment}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xend =}\NormalTok{ end, }\AttributeTok{yend =}\NormalTok{ id))}\SpecialCharTok{+}
+    \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values=}\FunctionTok{c}\NormalTok{(}\AttributeTok{Republican =} \StringTok{"red"}\NormalTok{, }\AttributeTok{Democratic =} \StringTok{"blue"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-16-5.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{( }\CommentTok{\#not we are just making a fake dataset so we can plot it}
+  \AttributeTok{x=} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{),}
+  \AttributeTok{y =} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
+\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hex}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{coord\_fixed}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-17-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(x,y))}\SpecialCharTok{+}
+  \FunctionTok{geom\_hex}\NormalTok{()}\SpecialCharTok{+}
+\NormalTok{  viridis}\SpecialCharTok{::}\FunctionTok{scale\_fill\_viridis}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{coord\_fixed}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-17-2.pdf}}
+Themes
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mpg, }\FunctionTok{aes}\NormalTok{(displ, hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{class))}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-18-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mpg,}\FunctionTok{aes}\NormalTok{(displ,hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{class))}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_light}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-18-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mpg,}\FunctionTok{aes}\NormalTok{(displ,hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{class))}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_classic}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-18-3.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mpg,}\FunctionTok{aes}\NormalTok{(displ,hwy))}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{class))}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_dark}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-18-4.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.border =} \FunctionTok{element\_blank}\NormalTok{(),}
+      \AttributeTok{panel.grid.minor.x =} \FunctionTok{element\_blank}\NormalTok{(),}
+      \AttributeTok{panel.grid.minor.y =} \FunctionTok{element\_blank}\NormalTok{(),}
+      \AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{,}
+      \AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{(),}
+      \AttributeTok{legend.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{8}\NormalTok{),}
+      \AttributeTok{panel.grid.major =} \FunctionTok{element\_blank}\NormalTok{(),}
+      \AttributeTok{axis.text.y=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{color=}\StringTok{"black"}\NormalTok{),}
+      \AttributeTok{axis.text.x=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{color=}\StringTok{"black"}\NormalTok{),}
+      \AttributeTok{text=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{family=}\StringTok{"Arial"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## List of 10
+##  $ text              :List of 11
+##   ..$ family       : chr "Arial"
+##   ..$ face         : NULL
+##   ..$ colour       : NULL
+##   ..$ size         : NULL
+##   ..$ hjust        : NULL
+##   ..$ vjust        : NULL
+##   ..$ angle        : NULL
+##   ..$ lineheight   : NULL
+##   ..$ margin       : NULL
+##   ..$ debug        : NULL
+##   ..$ inherit.blank: logi FALSE
+##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##  $ axis.text.x       :List of 11
+##   ..$ family       : NULL
+##   ..$ face         : NULL
+##   ..$ colour       : chr "black"
+##   ..$ size         : NULL
+##   ..$ hjust        : NULL
+##   ..$ vjust        : NULL
+##   ..$ angle        : NULL
+##   ..$ lineheight   : NULL
+##   ..$ margin       : NULL
+##   ..$ debug        : NULL
+##   ..$ inherit.blank: logi FALSE
+##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##  $ axis.text.y       :List of 11
+##   ..$ family       : NULL
+##   ..$ face         : NULL
+##   ..$ colour       : chr "black"
+##   ..$ size         : NULL
+##   ..$ hjust        : NULL
+##   ..$ vjust        : NULL
+##   ..$ angle        : NULL
+##   ..$ lineheight   : NULL
+##   ..$ margin       : NULL
+##   ..$ debug        : NULL
+##   ..$ inherit.blank: logi FALSE
+##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##  $ legend.text       :List of 11
+##   ..$ family       : NULL
+##   ..$ face         : NULL
+##   ..$ colour       : NULL
+##   ..$ size         : num 8
+##   ..$ hjust        : NULL
+##   ..$ vjust        : NULL
+##   ..$ angle        : NULL
+##   ..$ lineheight   : NULL
+##   ..$ margin       : NULL
+##   ..$ debug        : NULL
+##   ..$ inherit.blank: logi FALSE
+##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##  $ legend.title      : list()
+##   ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+##  $ legend.position   : chr "bottom"
+##  $ panel.border      : list()
+##   ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+##  $ panel.grid.major  : list()
+##   ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+##  $ panel.grid.minor.x: list()
+##   ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+##  $ panel.grid.minor.y: list()
+##   ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+##  - attr(*, "class")= chr [1:2] "theme" "gg"
+##  - attr(*, "complete")= logi FALSE
+##  - attr(*, "validate")= logi TRUE
+\end{verbatim}
+
+Saving and Exporting your Plots
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mpg, }\FunctionTok{aes}\NormalTok{(displ, hwy)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-19-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"my{-}plot.pdf"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Saving 6.5 x 4.5 in image
+\end{verbatim}
+
+Workshop 2 Assignment
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Qfish }\OtherTok{\textless{}{-}}\FunctionTok{read.csv}\NormalTok{(}\StringTok{"../data/QFish\_Data.csv"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(Qfish)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                    Area X2001.Total
+## 1                         Bribie Island           0
+## 2                             Bundaberg          75
+## 3                                Cairns         100
+## 4                       Capricorn Coast          89
+## 5                             Gladstone          32
+## 6                            Gold Coast         155
+## 7                                Mackay         172
+## 8                    Nth Stradbroke Is.          26
+## 9                         Rainbow Beach          44
+## 10                 Sunshine Coast North         115
+## 11                 Sunshine Coast South           0
+## 12 Sunshine Coast South & Bribie Island          48
+## 13                           Townsville         108
+\end{verbatim}
+
+Plotting the data, it is mainly cleaned, there are no NAs or missing
+values
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{ggplot}\NormalTok{(Qfish, }\FunctionTok{aes}\NormalTok{ (}\AttributeTok{x =}\NormalTok{ Area, }\AttributeTok{y =}\NormalTok{ X2001.Total))}\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"darkcyan"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Total Catch in 2001 by Area"}\NormalTok{,}
+       \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Total Cathc"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{, }\AttributeTok{size =} \DecValTok{6}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-21-1.pdf}}
+
+To Import the dataset: My first step for importing the dataset was to
+export a .csv file from Qfish. Once I have it in my correct file I then
+used the read.csv and the path to import the file into Rstudio.To make
+what I wanted easier to work with I created a new .csv file with only
+total 2001 data and the area. Cleaning the data: I fixed the columns
+with the proper headers and created a new dataset with the data I needed
+Creating my plot: I decided to make a bar graph as that was the best way
+to show the total number of species and animals caught in the year 2001.
+I created the boxplot and played around with color, phone sizes and axis
+labels.
+
+Workshop 3
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\NormalTok{table1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+##   country      year  cases population
+##   <chr>       <dbl>  <dbl>      <dbl>
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{ggplot}\NormalTok{(table1, }\FunctionTok{aes}\NormalTok{(year, cases))}\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group =}\NormalTok{ country), }\AttributeTok{colour =} \StringTok{"grey50"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ country))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-22-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{table1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+##   country      year  cases population
+##   <chr>       <dbl>  <dbl>      <dbl>
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{table2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 4
+##    country      year type            count
+##    <chr>       <dbl> <chr>           <dbl>
+##  1 Afghanistan  1999 cases             745
+##  2 Afghanistan  1999 population   19987071
+##  3 Afghanistan  2000 cases            2666
+##  4 Afghanistan  2000 population   20595360
+##  5 Brazil       1999 cases           37737
+##  6 Brazil       1999 population  172006362
+##  7 Brazil       2000 cases           80488
+##  8 Brazil       2000 population  174504898
+##  9 China        1999 cases          212258
+## 10 China        1999 population 1272915272
+## 11 China        2000 cases          213766
+## 12 China        2000 population 1280428583
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{table3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   country      year rate             
+##   <chr>       <dbl> <chr>            
+## 1 Afghanistan  1999 745/19987071     
+## 2 Afghanistan  2000 2666/20595360    
+## 3 Brazil       1999 37737/172006362  
+## 4 Brazil       2000 80488/174504898  
+## 5 China        1999 212258/1272915272
+## 6 China        2000 213766/1280428583
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Table 1 is set up well with country, year cases and population. This
+  shows the population per year per country with the number of cases.
+  table2 shows the count of cases and population in each country
+  separated by year. table3 has the rate in there but as the growth rate
+  per year in each country but it has not been calculated yet.
+\item
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    using table 1 we would use a combination of the pipe function and
+    the pivot longer to call the cases with country and year because
+    there are 2 years for each country. and use the mutate function to
+    put it into a new row in the table
+  \end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  and then to do the matching population per country per year, we would
+  do the same as above but instead of case it would be population and
+  then would mutate it so that it created a new row in the chart
+\item
+  using those new columns and creating a new column I can then calculate
+  the the case by population and multiply it by 10,000 and use the
+  mutate function to put that back into the dataset.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{billboard }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+    \AttributeTok{cols =} \FunctionTok{starts\_with}\NormalTok{(}\StringTok{"wk"}\NormalTok{),}
+    \AttributeTok{names\_to =} \StringTok{"week"}\NormalTok{,}
+    \AttributeTok{values\_to =} \StringTok{"rank"}\NormalTok{,}
+    \AttributeTok{values\_drop\_na =} \ConstantTok{TRUE}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5,307 x 5
+##    artist  track                   date.entered week   rank
+##    <chr>   <chr>                   <date>       <chr> <dbl>
+##  1 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk1      87
+##  2 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk2      82
+##  3 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk3      72
+##  4 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk4      77
+##  5 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk5      87
+##  6 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk6      94
+##  7 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk7      99
+##  8 2Ge+her The Hardest Part Of ... 2000-09-02   wk1      91
+##  9 2Ge+her The Hardest Part Of ... 2000-09-02   wk2      87
+## 10 2Ge+her The Hardest Part Of ... 2000-09-02   wk3      92
+## # i 5,297 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{ (}
+  \SpecialCharTok{\textasciitilde{}}\NormalTok{id, }\SpecialCharTok{\textasciitilde{}}\NormalTok{bp1, }\SpecialCharTok{\textasciitilde{}}\NormalTok{bp2,}
+  \StringTok{"A"}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{120}\NormalTok{,}
+  \StringTok{"B"}\NormalTok{, }\DecValTok{140}\NormalTok{, }\DecValTok{115}\NormalTok{,}
+  \StringTok{"C"}\NormalTok{, }\DecValTok{120}\NormalTok{, }\DecValTok{125}
+\NormalTok{)}
+\CommentTok{\#this is creating out own dataset called df with 3 variables}
+
+\NormalTok{df}\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+    \AttributeTok{cols =}\NormalTok{ bp1}\SpecialCharTok{:}\NormalTok{bp2,}
+    \AttributeTok{names\_to =} \StringTok{"measurement"}\NormalTok{,}
+    \AttributeTok{values\_to =}\StringTok{"value"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   id    measurement value
+##   <chr> <chr>       <dbl>
+## 1 A     bp1           100
+## 2 A     bp2           120
+## 3 B     bp1           140
+## 4 B     bp2           115
+## 5 C     bp1           120
+## 6 C     bp2           125
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#the above took the values for both bp1 and bp2 into one column and then another column was its matched bp1 or bp2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cms\_patient\_experience }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pivot\_wider}\NormalTok{(}
+    \AttributeTok{id\_cols =} \FunctionTok{starts\_with}\NormalTok{(}\StringTok{"org"}\NormalTok{),}
+    \AttributeTok{names\_from =}\NormalTok{ measure\_cd,}
+    \AttributeTok{values\_from =}\NormalTok{ prf\_rate}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 95 x 8
+##    org_pac_id org_nm CAHPS_GRP_1 CAHPS_GRP_2 CAHPS_GRP_3 CAHPS_GRP_5 CAHPS_GRP_8
+##    <chr>      <chr>        <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+##  1 0446157747 USC C~          63          87          86          57          85
+##  2 0446162697 ASSOC~          59          85          83          63          88
+##  3 0547164295 BEAVE~          49          NA          75          44          73
+##  4 0749333730 CAPE ~          67          84          85          65          82
+##  5 0840104360 ALLIA~          66          87          87          64          87
+##  6 0840109864 REX H~          73          87          84          67          91
+##  7 0840513552 SCL H~          58          83          76          58          78
+##  8 0941545784 GRITM~          46          86          81          54          NA
+##  9 1052612785 COMMU~          65          84          80          58          87
+## 10 1254237779 OUR L~          61          NA          NA          65          NA
+## # i 85 more rows
+## # i 1 more variable: CAHPS_GRP_12 <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{ (}
+  \SpecialCharTok{\textasciitilde{}}\NormalTok{id, }\SpecialCharTok{\textasciitilde{}}\NormalTok{measurement, }\SpecialCharTok{\textasciitilde{}}\NormalTok{value,}
+  \StringTok{"A"}\NormalTok{, }\StringTok{"bp1"}\NormalTok{, }\DecValTok{100}\NormalTok{,}
+  \StringTok{"B"}\NormalTok{, }\StringTok{"bp2"}\NormalTok{, }\DecValTok{115}\NormalTok{,}
+  \StringTok{"B"}\NormalTok{, }\StringTok{"bp1"}\NormalTok{, }\DecValTok{140}\NormalTok{,}
+  \StringTok{"A"}\NormalTok{, }\StringTok{"bp2"}\NormalTok{, }\DecValTok{120}\NormalTok{,}
+  \StringTok{"A"}\NormalTok{, }\StringTok{"bp3"}\NormalTok{, }\DecValTok{105}
+\NormalTok{)}
+\FunctionTok{print}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 3
+##   id    measurement value
+##   <chr> <chr>       <dbl>
+## 1 A     bp1           100
+## 2 B     bp2           115
+## 3 B     bp1           140
+## 4 A     bp2           120
+## 5 A     bp3           105
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pivot\_wider}\NormalTok{(}
+    \AttributeTok{names\_from =}\NormalTok{ measurement,}
+    \AttributeTok{values\_from =}\NormalTok{ value}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 4
+##   id      bp1   bp2   bp3
+##   <chr> <dbl> <dbl> <dbl>
+## 1 A       100   120   105
+## 2 B       140   115    NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{distinct}\NormalTok{ (measurement) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pull}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "bp1" "bp2" "bp3"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{measurement, }\SpecialCharTok{{-}}\NormalTok{value) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{distinct}\NormalTok{()}\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{x =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{y =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{z =} \ConstantTok{NA}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 4
+##   id    x     y     z    
+##   <chr> <lgl> <lgl> <lgl>
+## 1 A     NA    NA    NA   
+## 2 B     NA    NA    NA
+\end{verbatim}
+
+Excercise 4.5.5
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stocks }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{year =} \FunctionTok{c}\NormalTok{(}\DecValTok{2015}\NormalTok{, }\DecValTok{2015}\NormalTok{, }\DecValTok{2016}\NormalTok{, }\DecValTok{2016}\NormalTok{),}
+  \AttributeTok{half =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{),}
+  \AttributeTok{return =} \FunctionTok{c}\NormalTok{(}\FloatTok{1.88}\NormalTok{, }\FloatTok{0.59}\NormalTok{, }\FloatTok{0.92}\NormalTok{, }\FloatTok{0.17}\NormalTok{)}
+\NormalTok{)}
+
+\NormalTok{stocks }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{names\_from =}\NormalTok{ year, }\AttributeTok{values\_from =}\NormalTok{ return) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\StringTok{\textquotesingle{}2015\textquotesingle{}}\SpecialCharTok{:}\StringTok{\textquotesingle{}2016\textquotesingle{}}\NormalTok{,}\AttributeTok{names\_to =} \StringTok{"year"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"return"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 3
+##    half year  return
+##   <dbl> <chr>  <dbl>
+## 1     1 2015    1.88
+## 2     1 2016    0.92
+## 3     2 2015    0.59
+## 4     2 2016    0.17
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  it is becuase they sort the data differently. One organizes by 1/2 1
+  na dthe other by 1/2 2
+\item
+  the code fails because the years need the quotations around them
+\item
+  this tibble would need to be longer. the variables are pregnant, male
+  and female
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{table3 }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{separate}\NormalTok{(rate, }\AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"cases"}\NormalTok{, }\StringTok{"population"}\NormalTok{), }\AttributeTok{convert =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+##   country      year  cases population
+##   <chr>       <dbl>  <int>      <int>
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{table3 }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{separate}\NormalTok{(year, }\AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"century"}\NormalTok{, }\StringTok{"year"}\NormalTok{), }\AttributeTok{sep =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+##   country     century year  rate             
+##   <chr>       <chr>   <chr> <chr>            
+## 1 Afghanistan 19      99    745/19987071     
+## 2 Afghanistan 20      00    2666/20595360    
+## 3 Brazil      19      99    37737/172006362  
+## 4 Brazil      20      00    80488/174504898  
+## 5 China       19      99    212258/1272915272
+## 6 China       20      00    213766/1280428583
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{table5}\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{unite}\NormalTok{(new,century,year,}\AttributeTok{sep =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   country     new   rate             
+##   <chr>       <chr> <chr>            
+## 1 Afghanistan 1999  745/19987071     
+## 2 Afghanistan 2000  2666/20595360    
+## 3 Brazil      1999  37737/172006362  
+## 4 Brazil      2000  80488/174504898  
+## 5 China       1999  212258/1272915272
+## 6 China       2000  213766/1280428583
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{treatment }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}
+  \SpecialCharTok{\textasciitilde{}}\NormalTok{person, }\SpecialCharTok{\textasciitilde{}}\NormalTok{treatment, }\SpecialCharTok{\textasciitilde{}}\NormalTok{response,}
+  \StringTok{"Derrick"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{7}\NormalTok{, }
+  \ConstantTok{NA}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{,}
+  \ConstantTok{NA}\NormalTok{, }\DecValTok{3}\NormalTok{, }\ConstantTok{NA}\NormalTok{,}
+  \StringTok{"Katherine"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{4}
+\NormalTok{)}
+
+\CommentTok{\#you can use fill in these missing values with tidyr::fill(), it works like select()}
+\NormalTok{treatment }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{fill}\NormalTok{(}\FunctionTok{everything}\NormalTok{()) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 3
+##   person    treatment response
+##   <chr>         <dbl>    <dbl>
+## 1 Derrick           1        7
+## 2 Derrick           2       10
+## 3 Derrick           3       10
+## 4 Katherine         1        4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#this treatment is sometimes calles "last observation carried forward"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{7}\NormalTok{,}\ConstantTok{NA}\NormalTok{)}
+\FunctionTok{coalesce}\NormalTok{(x,}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 4 5 7 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{7}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{99}\NormalTok{)}
+\FunctionTok{na\_if}\NormalTok{(x,}\SpecialCharTok{{-}}\DecValTok{99}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1  4  5  7 NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{ (}\ConstantTok{NA}\NormalTok{, }\ConstantTok{NaN}\NormalTok{)}
+\NormalTok{x}\SpecialCharTok{*}\DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  NA NaN
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\SpecialCharTok{==}\DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{is.na}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stocks }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{year =} \FunctionTok{c}\NormalTok{(}\DecValTok{2020}\NormalTok{,}\DecValTok{2020}\NormalTok{,}\DecValTok{2020}\NormalTok{,}\DecValTok{2020}\NormalTok{,}\DecValTok{2021}\NormalTok{,}\DecValTok{2021}\NormalTok{,}\DecValTok{2021}\NormalTok{),}
+  \AttributeTok{qrt =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{),}
+  \AttributeTok{price =} \FunctionTok{c}\NormalTok{(}\FloatTok{1.88}\NormalTok{,}\FloatTok{0.59}\NormalTok{,}\FloatTok{0.35}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\FloatTok{0.92}\NormalTok{,}\FloatTok{0.17}\NormalTok{,}\FloatTok{2.66}\NormalTok{)}
+\NormalTok{)}
+
+\NormalTok{stocks }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pivot\_wider}\NormalTok{(}
+    \AttributeTok{names\_from =}\NormalTok{ qrt,}
+    \AttributeTok{values\_from =}\NormalTok{ price}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##    year   `1`   `2`   `3`   `4`
+##   <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1  2020  1.88  0.59  0.35 NA   
+## 2  2021 NA     0.92  0.17  2.66
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"https://pos.it/r4ds{-}students{-}csv"}\NormalTok{, }\AttributeTok{na=}\FunctionTok{c}\NormalTok{(}\StringTok{"N/A"}\NormalTok{, }\StringTok{""}\NormalTok{)) }\CommentTok{\#this brings in a csv file from the internet}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 6 Columns: 5
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (4): Full Name, favourite.food, mealPlan, AGE
+## dbl (1): Student ID
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#The N/A is not recognised as an actual NA so we converted it so that it does}
+\NormalTok{students}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+##   `Student ID` `Full Name`      favourite.food     mealPlan            AGE  
+##          <dbl> <chr>            <chr>              <chr>               <chr>
+## 1            1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    
+## 2            2 Barclay Lynn     French fries       Lunch only          5    
+## 3            3 Jayendra Lyne    <NA>               Breakfast and lunch 7    
+## 4            4 Leon Rossini     Anchovies          Lunch only          <NA> 
+## 5            5 Chidiegwu Dunkel Pizza              Breakfast and lunch five 
+## 6            6 Güvenç Attila    Ice cream          Lunch only          6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}
+    \AttributeTok{student\_id =} \StringTok{\textquotesingle{}Student ID\textquotesingle{}}\NormalTok{,}
+    \AttributeTok{full\_name =} \StringTok{\textquotesingle{}Full Name\textquotesingle{}}
+\NormalTok{         )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+##   student_id full_name        favourite.food     mealPlan            AGE  
+##        <dbl> <chr>            <chr>              <chr>               <chr>
+## 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    
+## 2          2 Barclay Lynn     French fries       Lunch only          5    
+## 3          3 Jayendra Lyne    <NA>               Breakfast and lunch 7    
+## 4          4 Leon Rossini     Anchovies          Lunch only          <NA> 
+## 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five 
+## 6          6 Güvenç Attila    Ice cream          Lunch only          6
+\end{verbatim}
+
+Exercise 4.7.3
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  each of these are creating a file.
+\item
+  there are not enough column names
+\item
+  there are too many rows for the amount of columns present
+\item
+  there is a quotation issue with this one
+\item
+  there is an issue with number and character
+\item
+  the last one needs a comma not a semicolon
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\CommentTok{\#install.packages("nycflights13")}
+\FunctionTok{library}\NormalTok{(nycflights13)}
+
+\NormalTok{airlines}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 16 x 2
+##    carrier name                       
+##    <chr>   <chr>                      
+##  1 9E      Endeavor Air Inc.          
+##  2 AA      American Airlines Inc.     
+##  3 AS      Alaska Airlines Inc.       
+##  4 B6      JetBlue Airways            
+##  5 DL      Delta Air Lines Inc.       
+##  6 EV      ExpressJet Airlines Inc.   
+##  7 F9      Frontier Airlines Inc.     
+##  8 FL      AirTran Airways Corporation
+##  9 HA      Hawaiian Airlines Inc.     
+## 10 MQ      Envoy Air                  
+## 11 OO      SkyWest Airlines Inc.      
+## 12 UA      United Air Lines Inc.      
+## 13 US      US Airways Inc.            
+## 14 VX      Virgin America             
+## 15 WN      Southwest Airlines Co.     
+## 16 YV      Mesa Airlines Inc.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{airports}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,458 x 8
+##    faa   name                             lat    lon   alt    tz dst   tzone    
+##    <chr> <chr>                          <dbl>  <dbl> <dbl> <dbl> <chr> <chr>    
+##  1 04G   Lansdowne Airport               41.1  -80.6  1044    -5 A     America/~
+##  2 06A   Moton Field Municipal Airport   32.5  -85.7   264    -6 A     America/~
+##  3 06C   Schaumburg Regional             42.0  -88.1   801    -6 A     America/~
+##  4 06N   Randall Airport                 41.4  -74.4   523    -5 A     America/~
+##  5 09J   Jekyll Island Airport           31.1  -81.4    11    -5 A     America/~
+##  6 0A9   Elizabethton Municipal Airport  36.4  -82.2  1593    -5 A     America/~
+##  7 0G6   Williams County Airport         41.5  -84.5   730    -5 A     America/~
+##  8 0G7   Finger Lakes Regional Airport   42.9  -76.8   492    -5 A     America/~
+##  9 0P2   Shoestring Aviation Airfield    39.8  -76.6  1000    -5 U     America/~
+## 10 0S9   Jefferson County Intl           48.1 -123.    108    -8 A     America/~
+## # i 1,448 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{planes}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3,322 x 9
+##    tailnum  year type              manufacturer model engines seats speed engine
+##    <chr>   <int> <chr>             <chr>        <chr>   <int> <int> <int> <chr> 
+##  1 N10156   2004 Fixed wing multi~ EMBRAER      EMB-~       2    55    NA Turbo~
+##  2 N102UW   1998 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
+##  3 N103US   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
+##  4 N104UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
+##  5 N10575   2002 Fixed wing multi~ EMBRAER      EMB-~       2    55    NA Turbo~
+##  6 N105UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
+##  7 N107US   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
+##  8 N108UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
+##  9 N109UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
+## 10 N110UW   1999 Fixed wing multi~ AIRBUS INDU~ A320~       2   182    NA Turbo~
+## # i 3,312 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{weather}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 26,115 x 15
+##    origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
+##    <chr>  <int> <int> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>
+##  1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4 
+##  2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06
+##  3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5 
+##  4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7 
+##  5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7 
+##  6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5 
+##  7 EWR     2013     1     1     7  39.0  28.0  64.4      240      15.0 
+##  8 EWR     2013     1     1     8  39.9  28.0  62.2      250      10.4 
+##  9 EWR     2013     1     1     9  39.9  28.0  62.2      260      15.0 
+## 10 EWR     2013     1     1    10  41    28.0  59.6      260      13.8 
+## # i 26,105 more rows
+## # i 5 more variables: wind_gust <dbl>, precip <dbl>, pressure <dbl>,
+## #   visib <dbl>, time_hour <dttm>
+\end{verbatim}
+
+\#we are going to join the datasets, first we have to make tibbles of
+all of the data that we want from each dataset
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{planes }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{count}\NormalTok{(tailnum) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(n}\SpecialCharTok{\textgreater{}}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 0 x 2
+## # i 2 variables: tailnum <chr>, n <int>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{weather }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{count}\NormalTok{(year,month,day,hour,origin)}\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(n}\SpecialCharTok{\textgreater{}}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 6
+##    year month   day  hour origin     n
+##   <int> <int> <int> <int> <chr>  <int>
+## 1  2013    11     3     1 EWR        2
+## 2  2013    11     3     1 JFK        2
+## 3  2013    11     3     1 LGA        2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flights }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{count}\NormalTok{(year,month,day,flight) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(n}\SpecialCharTok{\textgreater{}}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 29,768 x 5
+##     year month   day flight     n
+##    <int> <int> <int>  <int> <int>
+##  1  2013     1     1      1     2
+##  2  2013     1     1      3     2
+##  3  2013     1     1      4     2
+##  4  2013     1     1     11     3
+##  5  2013     1     1     15     2
+##  6  2013     1     1     21     2
+##  7  2013     1     1     27     4
+##  8  2013     1     1     31     2
+##  9  2013     1     1     32     2
+## 10  2013     1     1     35     2
+## # i 29,758 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flights }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{count}\NormalTok{(year,month,day,tailnum) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(n}\SpecialCharTok{\textgreater{}}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 64,928 x 5
+##     year month   day tailnum     n
+##    <int> <int> <int> <chr>   <int>
+##  1  2013     1     1 N0EGMQ      2
+##  2  2013     1     1 N11189      2
+##  3  2013     1     1 N11536      2
+##  4  2013     1     1 N11544      3
+##  5  2013     1     1 N11551      2
+##  6  2013     1     1 N12540      2
+##  7  2013     1     1 N12567      2
+##  8  2013     1     1 N13123      2
+##  9  2013     1     1 N13538      3
+## 10  2013     1     1 N13566      3
+## # i 64,918 more rows
+\end{verbatim}
+
+then we are going to use mutating joins which adds variables to the
+right side of the sata table
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flights2 }\OtherTok{\textless{}{-}}\NormalTok{ flights }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(year}\SpecialCharTok{:}\NormalTok{day,hour,origin,dest,tailnum,carrier)}
+\NormalTok{flights2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 336,776 x 8
+##     year month   day  hour origin dest  tailnum carrier
+##    <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>  
+##  1  2013     1     1     5 EWR    IAH   N14228  UA     
+##  2  2013     1     1     5 LGA    IAH   N24211  UA     
+##  3  2013     1     1     5 JFK    MIA   N619AA  AA     
+##  4  2013     1     1     5 JFK    BQN   N804JB  B6     
+##  5  2013     1     1     6 LGA    ATL   N668DN  DL     
+##  6  2013     1     1     5 EWR    ORD   N39463  UA     
+##  7  2013     1     1     6 EWR    FLL   N516JB  B6     
+##  8  2013     1     1     6 LGA    IAD   N829AS  EV     
+##  9  2013     1     1     6 JFK    MCO   N593JB  B6     
+## 10  2013     1     1     6 LGA    ORD   N3ALAA  AA     
+## # i 336,766 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flights2 }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{origin, }\SpecialCharTok{{-}}\NormalTok{dest) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{left\_join}\NormalTok{(airlines, }\AttributeTok{by =} \StringTok{"carrier"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 336,776 x 7
+##     year month   day  hour tailnum carrier name                    
+##    <int> <int> <int> <dbl> <chr>   <chr>   <chr>                   
+##  1  2013     1     1     5 N14228  UA      United Air Lines Inc.   
+##  2  2013     1     1     5 N24211  UA      United Air Lines Inc.   
+##  3  2013     1     1     5 N619AA  AA      American Airlines Inc.  
+##  4  2013     1     1     5 N804JB  B6      JetBlue Airways         
+##  5  2013     1     1     6 N668DN  DL      Delta Air Lines Inc.    
+##  6  2013     1     1     5 N39463  UA      United Air Lines Inc.   
+##  7  2013     1     1     6 N516JB  B6      JetBlue Airways         
+##  8  2013     1     1     6 N829AS  EV      ExpressJet Airlines Inc.
+##  9  2013     1     1     6 N593JB  B6      JetBlue Airways         
+## 10  2013     1     1     6 N3ALAA  AA      American Airlines Inc.  
+## # i 336,766 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flights2 }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{origin, }\SpecialCharTok{{-}}\NormalTok{dest) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{name=}\NormalTok{airlines}\SpecialCharTok{$}\NormalTok{name[}\FunctionTok{match}\NormalTok{(carrier, airlines}\SpecialCharTok{$}\NormalTok{carrier)])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 336,776 x 7
+##     year month   day  hour tailnum carrier name                    
+##    <int> <int> <int> <dbl> <chr>   <chr>   <chr>                   
+##  1  2013     1     1     5 N14228  UA      United Air Lines Inc.   
+##  2  2013     1     1     5 N24211  UA      United Air Lines Inc.   
+##  3  2013     1     1     5 N619AA  AA      American Airlines Inc.  
+##  4  2013     1     1     5 N804JB  B6      JetBlue Airways         
+##  5  2013     1     1     6 N668DN  DL      Delta Air Lines Inc.    
+##  6  2013     1     1     5 N39463  UA      United Air Lines Inc.   
+##  7  2013     1     1     6 N516JB  B6      JetBlue Airways         
+##  8  2013     1     1     6 N829AS  EV      ExpressJet Airlines Inc.
+##  9  2013     1     1     6 N593JB  B6      JetBlue Airways         
+## 10  2013     1     1     6 N3ALAA  AA      American Airlines Inc.  
+## # i 336,766 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}
+  \SpecialCharTok{\textasciitilde{}}\NormalTok{key, }\SpecialCharTok{\textasciitilde{}}\NormalTok{val\_x,}
+  \DecValTok{1}\NormalTok{, }\StringTok{"x1"}\NormalTok{,}
+  \DecValTok{2}\NormalTok{, }\StringTok{"x2"}\NormalTok{,}
+  \DecValTok{3}\NormalTok{, }\StringTok{"x3"}
+\NormalTok{)}
+
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}
+  \SpecialCharTok{\textasciitilde{}}\NormalTok{key, }\SpecialCharTok{\textasciitilde{}}\NormalTok{val\_y,}
+  \DecValTok{1}\NormalTok{, }\StringTok{"y1"}\NormalTok{,}
+  \DecValTok{2}\NormalTok{, }\StringTok{"2"}\NormalTok{,}
+  \DecValTok{3}\NormalTok{, }\StringTok{"y3"}
+\NormalTok{)}
+
+
+\NormalTok{x }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{inner\_join}\NormalTok{(y, }\AttributeTok{by =} \StringTok{"key"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 3
+##     key val_x val_y
+##   <dbl> <chr> <chr>
+## 1     1 x1    y1   
+## 2     2 x2    2    
+## 3     3 x3    y3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#left join: keeps all observations in x}
+\CommentTok{\#right join: keeps all observations in y}
+\CommentTok{\# full join: keeps all observations in x and y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flights2 }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{left\_join}\NormalTok{(weather)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Joining with `by = join_by(year, month, day, hour, origin)`
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 336,776 x 18
+##     year month   day  hour origin dest  tailnum carrier  temp  dewp humid
+##    <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <dbl> <dbl> <dbl>
+##  1  2013     1     1     5 EWR    IAH   N14228  UA       39.0  28.0  64.4
+##  2  2013     1     1     5 LGA    IAH   N24211  UA       39.9  25.0  54.8
+##  3  2013     1     1     5 JFK    MIA   N619AA  AA       39.0  27.0  61.6
+##  4  2013     1     1     5 JFK    BQN   N804JB  B6       39.0  27.0  61.6
+##  5  2013     1     1     6 LGA    ATL   N668DN  DL       39.9  25.0  54.8
+##  6  2013     1     1     5 EWR    ORD   N39463  UA       39.0  28.0  64.4
+##  7  2013     1     1     6 EWR    FLL   N516JB  B6       37.9  28.0  67.2
+##  8  2013     1     1     6 LGA    IAD   N829AS  EV       39.9  25.0  54.8
+##  9  2013     1     1     6 JFK    MCO   N593JB  B6       37.9  27.0  64.3
+## 10  2013     1     1     6 LGA    ORD   N3ALAA  AA       39.9  25.0  54.8
+## # i 336,766 more rows
+## # i 7 more variables: wind_dir <dbl>, wind_speed <dbl>, wind_gust <dbl>,
+## #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flights2 }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{left\_join}\NormalTok{(planes, }\AttributeTok{by =} \StringTok{"tailnum"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 336,776 x 16
+##    year.x month   day  hour origin dest  tailnum carrier year.y type            
+##     <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>    <int> <chr>           
+##  1   2013     1     1     5 EWR    IAH   N14228  UA        1999 Fixed wing mult~
+##  2   2013     1     1     5 LGA    IAH   N24211  UA        1998 Fixed wing mult~
+##  3   2013     1     1     5 JFK    MIA   N619AA  AA        1990 Fixed wing mult~
+##  4   2013     1     1     5 JFK    BQN   N804JB  B6        2012 Fixed wing mult~
+##  5   2013     1     1     6 LGA    ATL   N668DN  DL        1991 Fixed wing mult~
+##  6   2013     1     1     5 EWR    ORD   N39463  UA        2012 Fixed wing mult~
+##  7   2013     1     1     6 EWR    FLL   N516JB  B6        2000 Fixed wing mult~
+##  8   2013     1     1     6 LGA    IAD   N829AS  EV        1998 Fixed wing mult~
+##  9   2013     1     1     6 JFK    MCO   N593JB  B6        2004 Fixed wing mult~
+## 10   2013     1     1     6 LGA    ORD   N3ALAA  AA          NA <NA>            
+## # i 336,766 more rows
+## # i 6 more variables: manufacturer <chr>, model <chr>, engines <int>,
+## #   seats <int>, speed <int>, engine <chr>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flights2 }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{left\_join}\NormalTok{(airports, }\FunctionTok{c}\NormalTok{(}\StringTok{"dest"}\OtherTok{=} \StringTok{"faa"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 336,776 x 15
+##     year month   day  hour origin dest  tailnum carrier name     lat   lon   alt
+##    <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <chr>  <dbl> <dbl> <dbl>
+##  1  2013     1     1     5 EWR    IAH   N14228  UA      Georg~  30.0 -95.3    97
+##  2  2013     1     1     5 LGA    IAH   N24211  UA      Georg~  30.0 -95.3    97
+##  3  2013     1     1     5 JFK    MIA   N619AA  AA      Miami~  25.8 -80.3     8
+##  4  2013     1     1     5 JFK    BQN   N804JB  B6      <NA>    NA    NA      NA
+##  5  2013     1     1     6 LGA    ATL   N668DN  DL      Harts~  33.6 -84.4  1026
+##  6  2013     1     1     5 EWR    ORD   N39463  UA      Chica~  42.0 -87.9   668
+##  7  2013     1     1     6 EWR    FLL   N516JB  B6      Fort ~  26.1 -80.2     9
+##  8  2013     1     1     6 LGA    IAD   N829AS  EV      Washi~  38.9 -77.5   313
+##  9  2013     1     1     6 JFK    MCO   N593JB  B6      Orlan~  28.4 -81.3    96
+## 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      Chica~  42.0 -87.9   668
+## # i 336,766 more rows
+## # i 3 more variables: tz <dbl>, dst <chr>, tzone <chr>
+\end{verbatim}
+
+Workshop 4: Spatial data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#install.packages("sf")}
+\CommentTok{\#install.packages("terra")}
+\CommentTok{\#install.packages("tmap")}
+
+\FunctionTok{library}\NormalTok{(sf) }\CommentTok{\#simple features}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linking to GEOS 3.13.0, GDAL 3.10.1, PROJ 9.5.1; sf_use_s2() is TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(terra) }\CommentTok{\#for raster}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## terra 1.8.42
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'terra'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:tidyr':
+## 
+##     extract
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tmap) }\CommentTok{\#thematic maps are geographical maps in whcih spatial data distributions are visualized}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(readr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"C:/Users/sydne/OneDrive {-} James Cook University/Documents/JCU/MB5370/github/SR{-}Code/Module04\_SR/data/data{-}for{-}course/copepods\_raw.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 5313 Columns: 11
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (5): sample_time_utc, project, route, vessel, region
+## dbl (6): silk_id, segment_no, latitude, longitude, meanlong, richness_raw
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5,313 x 11
+##    silk_id segment_no latitude longitude sample_time_utc  project route vessel  
+##      <dbl>      <dbl>    <dbl>     <dbl> <chr>            <chr>   <chr> <chr>   
+##  1       1          1    -28.3      154. 26/06/2009 22:08 AusCPR  BRSY  ANL Win~
+##  2       1          5    -28.7      154. 26/06/2009 23:12 AusCPR  BRSY  ANL Win~
+##  3       1          9    -29.0      154. 27/06/2009 0:17  AusCPR  BRSY  ANL Win~
+##  4       1         13    -29.3      154. 27/06/2009 1:22  AusCPR  BRSY  ANL Win~
+##  5       1         17    -29.7      154. 27/06/2009 2:26  AusCPR  BRSY  ANL Win~
+##  6       1         18    -29.8      154. 27/06/2009 2:43  AusCPR  BRSY  ANL Win~
+##  7       1         26    -30.4      153. 27/06/2009 4:52  AusCPR  BRSY  ANL Win~
+##  8       1         30    -30.7      153. 27/06/2009 5:57  AusCPR  BRSY  ANL Win~
+##  9       1         33    -31.0      153. 27/06/2009 6:45  AusCPR  BRSY  ANL Win~
+## 10       1         37    -31.3      153. 27/06/2009 7:50  AusCPR  BRSY  ANL Win~
+## # i 5,303 more rows
+## # i 3 more variables: meanlong <dbl>, region <chr>, richness_raw <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\FunctionTok{ggplot}\NormalTok{(dat)}\SpecialCharTok{+}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{longitude,}\AttributeTok{y=}\NormalTok{latitude, }\AttributeTok{color=}\NormalTok{richness\_raw)}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-40-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ latitude, }\AttributeTok{y =}\NormalTok{ richness\_raw))}\SpecialCharTok{+}
+  \FunctionTok{stat\_smooth}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-40-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sdat }\OtherTok{\textless{}{-}}\FunctionTok{st\_as\_sf}\NormalTok{(dat, }\AttributeTok{coords =} \FunctionTok{c}\NormalTok{(}\StringTok{"longitude"}\NormalTok{, }\StringTok{"latitude"}\NormalTok{),}
+                \AttributeTok{crs =} \DecValTok{4326}\NormalTok{)}
+\CommentTok{\#st\_as\_sf converts different data types to simple feature}
+\CommentTok{\#coords gives the name of the columns that relate to the spatial coordinates }
+\CommentTok{\#crs stands for coordinate reference system}
+
+\NormalTok{crs4326 }\OtherTok{\textless{}{-}}\FunctionTok{st\_crs}\NormalTok{(}\DecValTok{4326}\NormalTok{)}
+\NormalTok{crs4326}\SpecialCharTok{$}\NormalTok{Name}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "WGS 84"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sdat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Simple feature collection with 5313 features and 9 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 89.6107 ymin: -65.2428 xmax: 174.335 ymax: -16.80253
+## Geodetic CRS:  WGS 84
+## # A tibble: 5,313 x 10
+##    silk_id segment_no sample_time_utc  project route vessel      meanlong region
+##  *   <dbl>      <dbl> <chr>            <chr>   <chr> <chr>          <dbl> <chr> 
+##  1       1          1 26/06/2009 22:08 AusCPR  BRSY  ANL Windar~     153. East  
+##  2       1          5 26/06/2009 23:12 AusCPR  BRSY  ANL Windar~     153. East  
+##  3       1          9 27/06/2009 0:17  AusCPR  BRSY  ANL Windar~     153. East  
+##  4       1         13 27/06/2009 1:22  AusCPR  BRSY  ANL Windar~     153. East  
+##  5       1         17 27/06/2009 2:26  AusCPR  BRSY  ANL Windar~     153. East  
+##  6       1         18 27/06/2009 2:43  AusCPR  BRSY  ANL Windar~     153. East  
+##  7       1         26 27/06/2009 4:52  AusCPR  BRSY  ANL Windar~     153. East  
+##  8       1         30 27/06/2009 5:57  AusCPR  BRSY  ANL Windar~     153. East  
+##  9       1         33 27/06/2009 6:45  AusCPR  BRSY  ANL Windar~     153. East  
+## 10       1         37 27/06/2009 7:50  AusCPR  BRSY  ANL Windar~     153. East  
+## # i 5,303 more rows
+## # i 2 more variables: richness_raw <dbl>, geometry <POINT [°]>
+\end{verbatim}
+
+Cartography
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(sdat[}\StringTok{"richness\_raw"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-42-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(sdat)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-42-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tm\_shape}\NormalTok{(sdat)}\SpecialCharTok{+}
+  \FunctionTok{tm\_dots}\NormalTok{(}\AttributeTok{col =} \StringTok{"richness\_raw"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-42-3.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tmap\_save(tm1,filename = "richness{-}map.png",}
+         \CommentTok{\#width = 600, heights = 600)}
+\CommentTok{\# cant get the above tm1 to work, I do not uderstand where it is coming from COME BACK}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aus }\OtherTok{\textless{}{-}} \FunctionTok{st\_read}\NormalTok{(}\StringTok{"C:/Users/sydne/OneDrive {-} James Cook University/Documents/JCU/MB5370/github/SR{-}Code/Module04\_SR/data/data{-}for{-}course/spatial{-}data/Aussie/Aussie.shp"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Reading layer `Aussie' from data source 
+##   `C:\Users\sydne\OneDrive - James Cook University\Documents\JCU\MB5370\github\SR-Code\Module04_SR\data\data-for-course\spatial-data\Aussie\Aussie.shp' 
+##   using driver `ESRI Shapefile'
+## Simple feature collection with 8 features and 1 field
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 112.9211 ymin: -43.63192 xmax: 153.6389 ymax: -9.229614
+## Geodetic CRS:  WGS 84
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shelf }\OtherTok{\textless{}{-}} \FunctionTok{st\_read}\NormalTok{(}\StringTok{"C:/Users/sydne/OneDrive {-} James Cook University/Documents/JCU/MB5370/github/SR{-}Code/Module04\_SR/data/data{-}for{-}course/spatial{-}data/aus\_shelf/aus\_shelf.shp"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Reading layer `aus_shelf' from data source 
+##   `C:\Users\sydne\OneDrive - James Cook University\Documents\JCU\MB5370\github\SR-Code\Module04_SR\data\data-for-course\spatial-data\aus_shelf\aus_shelf.shp' 
+##   using driver `ESRI Shapefile'
+## Simple feature collection with 1 feature and 1 field
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 112.2242 ymin: -44.1284 xmax: 153.8942 ymax: -8.8798
+## Geodetic CRS:  GRS 1980(IUGG, 1980)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tm\_shape}\NormalTok{(shelf)}\SpecialCharTok{+}
+  \FunctionTok{tm\_polygons}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-44-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tm\_shape}\NormalTok{(shelf, }\AttributeTok{box =}\NormalTok{ sdat)}\SpecialCharTok{+}
+  \FunctionTok{tm\_polygons}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{tm\_shape}\NormalTok{(aus)}\SpecialCharTok{+}
+  \FunctionTok{tm\_polygons}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{tm\_shape}\NormalTok{(sdat)}\SpecialCharTok{+}
+  \FunctionTok{tm\_dots}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Workshop.4_files/figure-latex/unnamed-chunk-44-2.pdf}}
+
+\end{document}
