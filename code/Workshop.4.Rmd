@@ -2,7 +2,10 @@
 title: "Workshop.4"
 author: "Sydney Russo"
 date: "2025-03-19"
-output: html_document
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
 ---
 
 Workshop 1
@@ -529,9 +532,20 @@ stocks |>
     values_from = price
   )
 ```
-PAGE &% THE BOTTOM
 
 
+
+```{r}
+students <- read_csv("https://pos.it/r4ds-students-csv", na=c("N/A", "")) #this brings in a csv file from the internet
+#The N/A is not recognised as an actual NA so we converted it so that it does
+students
+
+students |>
+  rename(
+    student_id = 'Student ID',
+    full_name = 'Full Name'
+         )
+```
 
 
 
@@ -545,10 +559,165 @@ Exercise 4.7.3
   4. there is an issue with number and character 
   5. the last one needs a comma not a semicolon
 
+```{r}
+library(tidyverse)
+#install.packages("nycflights13")
+library(nycflights13)
+
+airlines
+airports
+planes
+weather
+```
+
+#we are going to join the datasets, first we have to make tibbles of all of the data that we want from each dataset
+```{r}
+planes |>
+  count(tailnum) |>
+  filter(n>1)
+
+weather |>
+  count(year,month,day,hour,origin)|>
+  filter(n>1)
+
+flights |>
+  count(year,month,day,flight) |>
+  filter(n>1)
+
+flights |>
+  count(year,month,day,tailnum) |>
+  filter(n>1)
+```
+
+then we are going to use mutating joins which adds variables to the right side of the sata table
+```{r}
+flights2 <- flights |>
+  select(year:day,hour,origin,dest,tailnum,carrier)
+flights2
+
+flights2 |>
+  select(-origin, -dest) |>
+  left_join(airlines, by = "carrier")
+
+flights2 |>
+  select(-origin, -dest) |>
+  mutate(name=airlines$name[match(carrier, airlines$carrier)])
+```
+
+```{r}
+x <- tribble(
+  ~key, ~val_x,
+  1, "x1",
+  2, "x2",
+  3, "x3"
+)
+
+y <- tribble(
+  ~key, ~val_y,
+  1, "y1",
+  2, "2",
+  3, "y3"
+)
+
+
+x |>
+  inner_join(y, by = "key")
+
+
+#left join: keeps all observations in x
+#right join: keeps all observations in y
+# full join: keeps all observations in x and y
+
+```
+
+```{r}
+flights2 |>
+  left_join(weather)
+
+flights2 |>
+  left_join(planes, by = "tailnum")
+
+flights2 |>
+  left_join(airports, c("dest"= "faa"))
+
+
+```
+
+Workshop 4: Spatial data
+```{r warning=FALSE}
+#install.packages("sf")
+#install.packages("terra")
+#install.packages("tmap")
+
+library(sf) #simple features
+library(terra) #for raster
+library(tmap) #thematic maps are geographical maps in whcih spatial data distributions are visualized
+library(tidyverse)
+library(readr)
+```
+
+```{r}
+dat <- read_csv("C:/Users/sydne/OneDrive - James Cook University/Documents/JCU/MB5370/github/SR-Code/Module04_SR/data/data-for-course/copepods_raw.csv")
+
+dat
+
+library(ggplot2)
+
+ggplot(dat)+
+  aes(x=longitude,y=latitude, color=richness_raw)+
+  geom_point()
+
+ggplot(dat, aes(x = latitude, y = richness_raw))+
+  stat_smooth()+
+  geom_point()
+```
+
+```{r}
+sdat <-st_as_sf(dat, coords = c("longitude", "latitude"),
+                crs = 4326)
+#st_as_sf converts different data types to simple feature
+#coords gives the name of the columns that relate to the spatial coordinates 
+#crs stands for coordinate reference system
+
+crs4326 <-st_crs(4326)
+crs4326$Name
+
+sdat
+
+```
+Cartography
+```{r}
+plot(sdat["richness_raw"])
+plot(sdat)
+
+tm_shape(sdat)+
+  tm_dots(col = "richness_raw")
+
+#tmap_save(tm1,filename = "richness-map.png",
+         #width = 600, heights = 600)
+# cant get the above tm1 to work, I do not uderstand where it is coming from COME BACK
 
 
 
+```
+```{r}
+aus <- st_read("C:/Users/sydne/OneDrive - James Cook University/Documents/JCU/MB5370/github/SR-Code/Module04_SR/data/data-for-course/spatial-data/Aussie/Aussie.shp")
 
+shelf <- st_read("C:/Users/sydne/OneDrive - James Cook University/Documents/JCU/MB5370/github/SR-Code/Module04_SR/data/data-for-course/spatial-data/aus_shelf/aus_shelf.shp")
+```
+```{r}
+tm_shape(shelf)+
+  tm_polygons()
+
+tm_shape(shelf, box = sdat)+
+  tm_polygons()+
+  tm_shape(aus)+
+  tm_polygons()+
+  tm_shape(sdat)+
+  tm_dots()
+
+
+```
 
 
 
